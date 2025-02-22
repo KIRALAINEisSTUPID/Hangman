@@ -5,6 +5,7 @@ class Program
     static void Main(string[] args)
     {
         string hiddenText;
+        int hiddentTextCharAmount;
         Console.ForegroundColor = ConsoleColor.Magenta;
         string Hangman = "Hangman";
 
@@ -17,9 +18,15 @@ class Program
         Console.ForegroundColor = ConsoleColor.Yellow;
         Thread.Sleep(2000);
         Console.Clear();
-        Console.Write("Enter your text to start:");hiddenText = Convert.ToString(Console.ReadLine());
+        Console.Write("Enter your text to start:"); hiddenText = Convert.ToString(Console.ReadLine());
+        hiddentTextCharAmount = Game.GetLenght(hiddenText);
         Console.Clear();
-        Console.WriteLine("");
+        Console.WriteLine("Guess Word!");
+        for (int i = 0; i < hiddentTextCharAmount; i++)
+        {
+            Console.Write("_");
+        }
+        Game.CheckChars(hiddenText);
         
 
 
