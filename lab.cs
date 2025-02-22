@@ -124,11 +124,14 @@ namespace lab
                 if (new string(wordArray).Equals(hiddenWord, StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("You won...Congrulations");
+                    Console.ReadKey();
                     return;
+
                 }
             }
             Console.WriteLine($"\n You lose Hidden word was: {hiddenWord}");
-     
+            Console.ReadKey();
+
         }
 
 
@@ -225,10 +228,12 @@ namespace lab
                 if (new string(wordArray).Equals(hiddenWord, StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("Ты победила/a...Поздравляю");
+                    Console.ReadKey();
                     return;
                 }
             }
             Console.WriteLine($"\n АХАХА ты проиграл/a слово было: {hiddenWord}");
+            Console.ReadKey();
 
         }
     }
