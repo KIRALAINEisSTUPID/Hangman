@@ -23,10 +23,11 @@ namespace lab
                     break;
                 case '2':
                     Console.WriteLine("Вы выбрали русский.");
+                    RusMainMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid option. Please try again.");
-                    RusMainMenu();
+                    MainMenu();
                     break;
             }
         }
@@ -140,7 +141,7 @@ namespace lab
             string Hangman = "Виселицу";
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("Добропожаловать в   ");
+            Console.Write("Добро пожаловать в   ");
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(Hangman);
@@ -157,7 +158,78 @@ namespace lab
                 Console.Write("_ ");
             }
             Console.WriteLine();
-            Game.CheckChars(hiddenText);
+            Game.RusCheckChars(hiddenText);
+        }
+        public static int RusGetLength(string arg)
+        {
+            return arg.Length;
+        }
+
+        public static void RusCheckChars(string hiddenWord)
+        {
+            char[] wordArray = new char[hiddenWord.Length];
+            for (int i = 0; i < hiddenWord.Length; i++)
+            {
+                wordArray[i] = '_';
+            }
+
+            int maxAttempts = hiddenWord.Length + 3;
+            int attempts = 0;
+
+            while (attempts < maxAttempts)
+            {
+                Console.WriteLine();
+                Console.Write("Ввести букву: ");
+                char guess;
+                try
+                {
+                    guess = Console.ReadKey().KeyChar;
+                    Console.WriteLine();
+                }
+                catch
+                {
+                    Console.WriteLine("что-то пошло не так...");
+                    continue;
+                }
+
+                bool correctGuess = false;
+                for (int i = 0; i < hiddenWord.Length; i++)
+                {
+                    if (char.ToLower(hiddenWord[i]) == char.ToLower(guess))
+                    {
+                        if (wordArray[i] != hiddenWord[i])
+                        {
+                            wordArray[i] = hiddenWord[i];
+                            correctGuess = true;
+                        }
+                    }
+                }
+
+                if (!correctGuess)
+                {
+                    attempts++;
+                    Console.WriteLine($"Неправильно! Осталось: {maxAttempts - attempts} шансов");
+                }
+                else
+                {
+                    Console.WriteLine("Верно ...");
+                }
+
+                Console.Write("Слово: ");
+                foreach (char c in wordArray)
+                {
+                    Console.Write(c + " ");
+                }
+                Console.WriteLine();
+
+                if (new string(wordArray).Equals(hiddenWord, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Ты победила/a...Поздравляю");
+                    return;
+                }
+            }
+            Console.WriteLine($"\n АХАХА ты проиграл/a слово было: {hiddenWord}");
+
         }
     }
 }
